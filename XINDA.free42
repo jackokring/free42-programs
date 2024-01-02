@@ -1,0 +1,196 @@
+00 { 457-Byte Prgm }
+// 4STK mode default, FUNC does not compile
+// LBL A-J/a-e are local lettered
+// Max number local 08
+// Local VARS
+// L last X
+// R REGS
+// S temporary local REGS
+// T T
+// U temporary local T
+// X X
+// Y Y
+// Z Z
+
+// ========= template menu ==========
+01 LBL "TMENU"
+// MENU keys
+02 ""
+03 KEY 1 XEQ "name"
+04 ""
+05 KEY 2 XEQ "name"
+06 ""
+07 KEY 3 XEQ "name"
+08 ""
+09 KEY 4 XEQ "name"
+10 ""
+11 KEY 5 XEQ "name"
+12 ""
+13 KEY 6 XEQ "name"
+// UP
+14 KEY 7 GTO "name"
+// DOWN
+15 KEY 8 GTO "name"
+// EXIT
+16 KEY 9 GTO "name"
+17 GTO "NTRMENU"
+
+// ========= show menus and wait ==========
+18 LBL "NTRMENU"
+19 MENU
+20 LBL 08
+21 STOP
+22 GTO 08
+
+// ========= clear menus and exit ==========
+23 LBL "XITEND"
+24 CLMENU
+25 EXITALL
+26 RTN
+
+// ========= execute indirect alpha ==========
+27 LBL "XINDA"
+// save stack
+28 LSTO "X"
+29 R↓
+30 LSTO "Y"
+31 R↓
+32 LSTO "Z"
+33 R↓
+34 LSTO "T"
+// make local temp context for local T
+35 LSTO "U"
+36 R↓
+// save last X
+37 LASTX
+38 LSTO "L"
+39 R↓
+// save registers
+40 RCL "REGS"
+41 LSTO "R"
+// local temp context for registers
+42 LSTO "S"
+43 R↓
+// do indirect
+44 ASTO IND ST T
+45 XEQ IND ST T
+46 RTN
+
+// ========= exit points ==========
+// ========= zero return datums ==========
+47 LBL "XIT0"
+48 XEQ 00
+49 XEQ 04
+50 RTN
+
+// ========= one return datum ==========
+51 LBL "XIT1"
+52 XEQ 00
+53 XEQ 03
+54 XEQ 05
+55 RTN
+
+// ========= two return datums ==========
+56 LBL "XIT2"
+57 XEQ 00
+58 XEQ 02
+59 XEQ 06
+60 RTN
+
+// ========= three return datums ==========
+61 LBL "XIT3"
+62 XEQ 00
+63 XEQ 01
+64 XEQ 07
+65 RTN
+
+// ========= four return datums ==========
+66 LBL "XIT1"
+67 XEQ "STOT"
+68 XEQ 00
+69 XEQ "LRCLT"
+70 RTN
+
+// ========= exit stack repair ==========
+71 LBL 04
+72 RCL "T"
+73 LBL 03
+74 RCL "Z"
+75 LBL 02
+76 RCL "Y"
+77 LBL 01
+78 RCL "X"
+79 RTN
+
+// ========= rotary fixing ==========
+80 LBL 07
+81 R↑
+82 LBL 06
+83 R↑
+84 LBL 05
+85 R↑
+86 RTN
+
+// ========= T management ==========
+// ========= repair global T ==========
+87 LBL "RCLT"
+88 RCL "T"
+89 R↓
+90 RTN
+
+// ========= store local T ==========
+91 LBL "STOT"
+92 R↑
+93 STO "U"
+94 R↓
+95 RTN
+
+// ========= repair local T ==========
+96 LBL "LRCLT"
+97 RCL "U"
+98 R↓
+99 RTN
+
+// ========= restore registers and last X ==========
+// restore registers
+100 LBL 00
+101 RCL "R"
+102 STO "REGS"
+103 R↓
+// restore last X
+104 RCL "L"
+105 STO IND ST L
+106 R↓
+107 RTN
+
+// ========= temporary register switching ==========
+// imoprt local copy of registers to S
+108 LBL "IMPRG"
+109 XEQ "EXREG"
+110 XEQ "EXREG"
+111 RTN
+// this is it's own inverse, if used twice by the above S
+// is initialized with a local copy of REGS
+112 LBL "EXREG"
+113 XEQ "STOT"
+114 RCL "R"
+115 STO "S"
+116 R↓
+117 RCL "REGS"
+118 STO "R"
+119 R↓
+120 XEQ "LRCLT"
+// ========= export registers from S ==========
+121 LBL "EXPRG"
+122 XEQ "STOT"
+123 RCL "S"
+124 STO "REGS"
+125 R↓
+126 XEQ "LRCLT"
+127 RTN
+
+// ========= test shift was last key ==========
+128 LBL "SFT?"
+129 FS? 64
+130 RTNYES
+131 RTNNO
