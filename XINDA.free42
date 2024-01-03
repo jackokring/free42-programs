@@ -1,7 +1,7 @@
-00 { 457-Byte Prgm }
+00 { 655-Byte Prgm }
 // 4STK mode default, FUNC does not compile
 // LBL A-J/a-e are local lettered
-// Max number local 08
+// Max number local 19
 // Local VARS
 // L last X
 // R REGS
@@ -12,11 +12,11 @@
 // Y Y
 // Z Z
 
-// ========= template menu ==========
-01 LBL "TMENU"
-// MENU keys
-02 ""
-03 KEY 1 XEQ "name"
+// ========= app menu ==========
+01 LBL "APP"
+// MENU keys GTO for menu change, XEQ for operation
+02 "FRAC"
+03 KEY 1 GTO "FRAC"
 04 ""
 05 KEY 2 XEQ "name"
 06 ""
@@ -28,169 +28,282 @@
 12 ""
 13 KEY 6 XEQ "name"
 // UP
-14 KEY 7 GTO "name"
+14 KEY 7 GTO "APP"
 // DOWN
-15 KEY 8 GTO "name"
+15 KEY 8 GTO "APP"
 // EXIT
-16 KEY 9 GTO "name"
+16 KEY 9 GTO "XITEND"
 17 GTO "NTRMENU"
 
+// ========= frac menu ==========
+18 LBL "FRAC"
+// MENU keys GTO for menu change, XEQ for operation
+19 "÷+→"
+20 KEY 1 XEQ 09
+21 "÷++"
+22 KEY 2 XEQ 10
+23 "÷+-"
+24 KEY 3 XEQ 11
+25 "÷+×"
+26 KEY 4 XEQ 12
+27 "÷+÷"
+28 KEY 5 XEQ 13
+29 "→÷+"
+30 KEY 6 XEQ 14
+// UP
+31 KEY 7 GTO "FRAC"
+// DOWN
+32 KEY 8 GTO "FRAC"
+// EXIT
+33 KEY 9 GTO "APP"
+34 GTO "NTRMENU"
+
 // ========= show menus and wait ==========
-18 LBL "NTRMENU"
-19 MENU
-20 LBL 08
-21 STOP
-22 GTO 08
+35 LBL "NTRMENU"
+36 MENU
+37 LBL 08
+38 STOP
+39 GTO 08
 
 // ========= clear menus and exit ==========
-23 LBL "XITEND"
-24 CLMENU
-25 EXITALL
-26 RTN
+40 LBL "XITEND"
+41 CLMENU
+42 EXITALL
+43 RTN
+
+// ========= frac local processsing ==========
+// ignore resetting REGS back on exit, and fix last X
+44 LBL 09
+// store denominator
+45 STO 00
+46 R↓
+47 X<>Y
+48 ×
+49 +
+// store numerator
+50 STO 01
+51 RCL÷ 00
+// makes decimal in X
+52 GTO 16
+53 LBL 10
+54 XEQ 15
+// add
+// sub short cut
+55 LBL 18
+56 XEQ 19
+// numerator addition
+57 RCL 03
+58 STO+ 01
+59 R↓
+60 GTO 16
+61 LBL 11
+62 XEQ 15
+// sub
+63 RCL 01
+64 STO- 01
+65 STO- 01
+66 R↓
+67 GTO 18
+68 LBL 12
+69 XEQ 15
+// mul
+// div short cut
+70 LBL 17
+71 RCL 02
+72 STO× 00
+73 R↓
+74 RCL 03
+75 STO× 01
+76 R↓
+77 GTO 16
+78 LBL 13
+79 XEQ 15
+// div
+80 RCL 00
+81 STO 04
+82 R↓
+83 RCL 01
+84 STO 00
+85 R↓
+86 RCL 04
+87 STO 01
+88 R↓
+89 GTO 17
+90 LBL 14
+// to decimal in T, Z+Y/X
+91 RCL 01
+92 RCL÷ 00
+93 ENTER
+94 IP
+95 ENTER
+96 RCL× 00
+97 RCL- 01
+98 +/-
+99 RCL 00
+100 RTN
+// clone and read new
+101 LBL 15
+102 RCL 00
+103 STO 02
+104 R↓
+105 RCL 01
+106 STO 03
+107 R↓
+108 GTO 09
+// cancel GCD
+109 LBL 16
+
+// display
+110 XEQ 14
+111 RTN
+// normalize pair
+112 LBL 19
+
+113 RTN
 
 // ========= execute indirect alpha ==========
-27 LBL "XINDA"
+114 LBL "XINDA"
 // save stack
-28 LSTO "X"
-29 R↓
-30 LSTO "Y"
-31 R↓
-32 LSTO "Z"
-33 R↓
-34 LSTO "T"
+115 LSTO "X"
+116 R↓
+117 LSTO "Y"
+118 R↓
+119 LSTO "Z"
+120 R↓
+121 LSTO "T"
 // make local temp context for local T
-35 LSTO "U"
-36 R↓
+122 LSTO "U"
+123 R↓
 // save last X
-37 LASTX
-38 LSTO "L"
-39 R↓
+124 LASTX
+125 LSTO "L"
+126 R↓
 // save registers
-40 RCL "REGS"
-41 LSTO "R"
+127 RCL "REGS"
+128 LSTO "R"
 // local temp context for registers
-42 LSTO "S"
-43 R↓
+129 LSTO "S"
+130 R↓
 // do indirect
-44 ASTO IND ST T
-45 XEQ IND ST T
-46 RTN
+131 ASTO IND ST T
+132 XEQ IND ST T
+133 RTN
 
 // ========= exit points ==========
 // ========= zero return datums ==========
-47 LBL "XIT0"
-48 XEQ 00
-49 XEQ 04
-50 RTN
+134 LBL "XIT0"
+135 XEQ 00
+136 XEQ 04
+137 RTN
 
 // ========= one return datum ==========
-51 LBL "XIT1"
-52 XEQ 00
-53 XEQ 03
-54 XEQ 05
-55 RTN
+138 LBL "XIT1"
+139 XEQ 00
+140 XEQ 03
+141 XEQ 05
+142 RTN
 
 // ========= two return datums ==========
-56 LBL "XIT2"
-57 XEQ 00
-58 XEQ 02
-59 XEQ 06
-60 RTN
+143 LBL "XIT2"
+144 XEQ 00
+145 XEQ 02
+146 XEQ 06
+147 RTN
 
 // ========= three return datums ==========
-61 LBL "XIT3"
-62 XEQ 00
-63 XEQ 01
-64 XEQ 07
-65 RTN
+148 LBL "XIT3"
+149 XEQ 00
+150 XEQ 01
+151 XEQ 07
+152 RTN
 
 // ========= four return datums ==========
-66 LBL "XIT1"
-67 XEQ "STOT"
-68 XEQ 00
-69 XEQ "LRCLT"
-70 RTN
+153 LBL "XIT1"
+154 XEQ "STOT"
+155 XEQ 00
+156 XEQ "LRCLT"
+157 RTN
 
 // ========= exit stack repair ==========
-71 LBL 04
-72 RCL "T"
-73 LBL 03
-74 RCL "Z"
-75 LBL 02
-76 RCL "Y"
-77 LBL 01
-78 RCL "X"
-79 RTN
+158 LBL 04
+159 RCL "T"
+160 LBL 03
+161 RCL "Z"
+162 LBL 02
+163 RCL "Y"
+164 LBL 01
+165 RCL "X"
+166 RTN
 
 // ========= rotary fixing ==========
-80 LBL 07
-81 R↑
-82 LBL 06
-83 R↑
-84 LBL 05
-85 R↑
-86 RTN
+167 LBL 07
+168 R↑
+169 LBL 06
+170 R↑
+171 LBL 05
+172 R↑
+173 RTN
 
 // ========= T management ==========
 // ========= repair global T ==========
-87 LBL "RCLT"
-88 RCL "T"
-89 R↓
-90 RTN
+174 LBL "RCLT"
+175 RCL "T"
+176 R↓
+177 RTN
 
 // ========= store local T ==========
-91 LBL "STOT"
-92 R↑
-93 STO "U"
-94 R↓
-95 RTN
+178 LBL "STOT"
+179 R↑
+180 STO "U"
+181 R↓
+182 RTN
 
 // ========= repair local T ==========
-96 LBL "LRCLT"
-97 RCL "U"
-98 R↓
-99 RTN
+183 LBL "LRCLT"
+184 RCL "U"
+185 R↓
+186 RTN
 
 // ========= restore registers and last X ==========
 // restore registers
-100 LBL 00
-101 RCL "R"
-102 STO "REGS"
-103 R↓
+187 LBL 00
+188 RCL "R"
+189 STO "REGS"
+190 R↓
 // restore last X
-104 RCL "L"
-105 STO IND ST L
-106 R↓
-107 RTN
+191 RCL "L"
+192 STO IND ST L
+193 R↓
+194 RTN
 
 // ========= temporary register switching ==========
 // imoprt local copy of registers to S
-108 LBL "IMPRG"
-109 XEQ "EXREG"
-110 XEQ "EXREG"
-111 RTN
+195 LBL "IMPRG"
+196 XEQ "EXREG"
+197 XEQ "EXREG"
+198 RTN
 // this is it's own inverse, if used twice by the above S
 // is initialized with a local copy of REGS
-112 LBL "EXREG"
-113 XEQ "STOT"
-114 RCL "R"
-115 STO "S"
-116 R↓
-117 RCL "REGS"
-118 STO "R"
-119 R↓
-120 XEQ "LRCLT"
+199 LBL "EXREG"
+200 XEQ "STOT"
+201 RCL "R"
+202 STO "S"
+203 R↓
+204 RCL "REGS"
+205 STO "R"
+206 R↓
+207 XEQ "LRCLT"
 // ========= export registers from S ==========
-121 LBL "EXPRG"
-122 XEQ "STOT"
-123 RCL "S"
-124 STO "REGS"
-125 R↓
-126 XEQ "LRCLT"
-127 RTN
+208 LBL "EXPRG"
+209 XEQ "STOT"
+210 RCL "S"
+211 STO "REGS"
+212 R↓
+213 XEQ "LRCLT"
+214 RTN
 
 // ========= test shift was last key ==========
-128 LBL "SFT?"
-129 FS? 64
-130 RTNYES
-131 RTNNO
+215 LBL "SFT?"
+216 FS? 64
+217 RTNYES
+218 RTNNO
