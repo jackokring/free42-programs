@@ -167,7 +167,7 @@
 115 +/-
 116 RCL 00
 117 R↑
-118 STO IND ST L
+118 STO ST L
 119 R↓
 120 RTN
 // clone and read new
