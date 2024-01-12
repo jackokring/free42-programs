@@ -1,10 +1,12 @@
 # Apps
 The main app entry point is called `APP`.
 
-## XINDA
+## APP
 A system which compiles and does something like `FUNC` and also a menuing app is within this file.
 The menus are as follows
- * `FRAC` fractions.
+ * `FRAC` fractions, units `ENTER`, numerator `ENTER`, denominator `<function>`. The first and last
+ functions are store as and recall/display from respectively.
+ * `INTS` integer functions `GCD`.
 
 
 ## WAAL
