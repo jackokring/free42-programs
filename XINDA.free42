@@ -1,4 +1,4 @@
-00 { 891-Byte Prgm }
+00 { 878-Byte Prgm }
 // 4STK mode default, FUNC does not compile
 // LBL A-J/a-e are local lettered
 // Max label local 19
@@ -215,49 +215,47 @@
 // ========= GCD ==========
 154 LBL "GCD"
 155 ".GCD"
-156 XEQ "XINDA"
-157 RTN
-158 LBL ".GCD"
-159 MOD
-160 LASTX
-161 X<>Y
-162 X≠0?
-163 GTO ".GCD"
-164 +
-165 XEQ "DRPX"
-166 XEQ "XIT1"
-167 RTN
-
+// save a return
+156 GTO "XINDA"
+157 LBL ".GCD"
+158 MOD
+159 LASTX
+160 X<>Y
+161 X≠0?
+162 GTO ".GCD"
+163 +
+164 XEQ "DRPX"
+165 GTO "XIT1"
 
 // ========= execute indirect alpha ==========
 // Use RCLT if you need the global T restored
 // otherwise it's gone.
-168 LBL "XINDA"
+166 LBL "XINDA"
 // save stack
-169 LSTO "X"
+167 LSTO "X"
+168 R↓
+169 LSTO "Y"
 170 R↓
-171 LSTO "Y"
+171 LSTO "Z"
 172 R↓
-173 LSTO "Z"
-174 R↓
-175 LSTO "T"
+173 LSTO "T"
 // make local temp context for local T
-176 LSTO "U"
-177 R↓
+174 LSTO "U"
+175 R↓
 // save last X
-178 LASTX
-179 LSTO "L"
-180 R↓
+176 LASTX
+177 LSTO "L"
+178 R↓
 // save registers
-181 RCL "REGS"
-182 LSTO "R"
+179 RCL "REGS"
+180 LSTO "R"
 // local temp context for registers
-183 LSTO "S"
-184 R↓
+181 LSTO "S"
+182 R↓
 // do indirect
-185 ASTO ST T
-186 XEQ IND ST T
-187 RTN
+183 ASTO ST T
+// no need for XEQ
+184 GTO IND ST T
 
 // ========= exit points ==========
 // return a number of items
@@ -266,142 +264,136 @@
 // so FUNC 11 is a DRPX XIT1 kinda XEQ
 // of a XINDA
 // ========= zero return datums ==========
-188 LBL "XIT0"
-189 XEQ 00
-190 XEQ 04
-191 RTN
+185 LBL "XIT0"
+186 XEQ 00
+187 XEQ 04
+188 RTN
 
 // ========= one return datum ==========
-192 LBL "XIT1"
-193 XEQ 00
-194 XEQ 03
-195 XEQ 05
-196 RTN
+189 LBL "XIT1"
+190 XEQ 00
+191 XEQ 03
+192 GTO 05
 
 // ========= two return datums ==========
-197 LBL "XIT2"
-198 XEQ 00
-199 XEQ 02
-200 XEQ 06
-201 RTN
+193 LBL "XIT2"
+194 XEQ 00
+195 XEQ 02
+196 GTO 06
 
 // ========= three return datums ==========
-202 LBL "XIT3"
-203 XEQ 00
-204 XEQ 01
-205 XEQ 07
-206 RTN
+197 LBL "XIT3"
+198 XEQ 00
+199 XEQ 01
+200 GTO 07
 
 // ========= four return datums ==========
-207 LBL "XIT4"
-208 XEQ "STOT"
-209 XEQ 00
-210 XEQ "LRCLT"
-211 RTN
+201 LBL "XIT4"
+202 XEQ "STOT"
+203 XEQ 00
+204 GTO "LRCLT"
 
 // ========= exit stack repair ==========
-212 LBL 04
-213 RCL "T"
-214 LBL 03
-215 RCL "Z"
-216 LBL 02
-217 RCL "Y"
-218 LBL 01
-219 RCL "X"
-220 RTN
+205 LBL 04
+206 RCL "T"
+207 LBL 03
+208 RCL "Z"
+209 LBL 02
+210 RCL "Y"
+211 LBL 01
+212 RCL "X"
+213 RTN
 
 // ========= rotary fixing ==========
-221 LBL 07
-222 R↑
-223 LBL 06
-224 R↑
-225 LBL 05
-226 R↑
-227 RTN
+214 LBL 05
+215 R↓
+216 LBL 06
+217 R↓
+218 LBL 07
+219 R↓
+220 RTN
 
 // ========= T management ==========
 // ========= repair global T ==========
-228 LBL "RCLT"
-229 RCL "T"
-230 R↓
-231 RTN
+221 LBL "RCLT"
+222 RCL "T"
+223 R↓
+224 RTN
 
 // ========= store local T (U) ==========
-232 LBL "STOT"
-233 R↑
-234 STO "U"
-235 R↓
-236 RTN
+225 LBL "STOT"
+226 R↑
+227 STO "U"
+228 R↓
+229 RTN
 
 // ========= repair local T (U) ==========
-237 LBL "LRCLT"
-238 RCL "U"
-239 R↓
-240 RTN
+230 LBL "LRCLT"
+231 RCL "U"
+232 R↓
+233 RTN
 
 // ========= restore registers and last X ==========
 // restore registers called by XIT0-XIT4.
-241 LBL 00
-242 RCL "R"
-243 STO "REGS"
-244 R↓
+234 LBL 00
+235 RCL "R"
+236 STO "REGS"
+237 R↓
 // restore last X
-245 RCL "L"
-246 STO ST L
-247 R↓
-248 RTN
+238 RCL "L"
+239 STO ST L
+240 R↓
+241 RTN
 
 // ========= drop one return value ==========
 // T->Z->Y->X->L
 // local context
-249 LBL "DRPX"
-250 LSTO "U"
-251 XEQ "STOT"
-252 RCL "X"
-253 STO "L"
-254 R↓
-255 RCL "Y"
-256 STO "X"
-257 R↓
-258 RCL "Z"
-259 STO "Y"
-260 R↓
-261 RCL "T"
-262 STO "Z"
-263 R↓
-264 XEQ "LRCLT"
-265 RTN
+242 LBL "DRPX"
+243 LSTO "U"
+244 XEQ "STOT"
+245 RCL "X"
+246 STO "L"
+247 R↓
+248 RCL "Y"
+249 STO "X"
+250 R↓
+251 RCL "Z"
+252 STO "Y"
+253 R↓
+254 RCL "T"
+255 STO "Z"
+256 R↓
+257 GTO "LRCLT"
 
 // ========= temporary register switching ==========
 // imoprt local copy of registers to S
-266 LBL "IMPRG"
-267 XEQ "EXREG"
-268 XEQ "EXREG"
-269 RTN
+258 LBL "IMPRG"
+259 XEQ "EXREG"
+260 GTO "EXREG"
+
 // this is it's own inverse, if used twice by the above S
 // is initialized with a local copy of REGS
 // use this to export registers from function
-270 LBL "EXREG"
-271 XEQ "STOT"
-272 RCL "R"
-273 STO "S"
-274 R↓
-275 RCL "REGS"
-276 STO "R"
-277 R↓
-278 XEQ "LRCLT"
+261 LBL "EXREG"
+262 XEQ "STOT"
+263 RCL "R"
+264 STO "S"
+265 R↓
+266 RCL "REGS"
+267 STO "R"
+268 R↓
+269 XEQ "LRCLT"
 // ========= export registers from S ==========
-279 LBL "EXPRG"
-280 XEQ "STOT"
-281 RCL "S"
-282 STO "REGS"
-283 R↓
-284 XEQ "LRCLT"
-285 RTN
+270 LBL "EXPRG"
+271 XEQ "STOT"
+272 RCL "S"
+273 STO "REGS"
+274 R↓
+275 GTO "LRCLT"
 
 // ========= utility functions ==========
 // ========= test shift was last key ==========
-286 LBL "SFT?"
-287 FS? 64
-288 RTNYES
-289 RTNNO
+276 LBL "SFT?"
+277 FS? 64
+278 RTNYES
+279 RTNNO
