@@ -193,7 +193,7 @@
 132 LSTO "S"
 133 R↓
 // do indirect
-134 ASTO IND ST T
+134 ASTO ST T
 135 XEQ IND ST T
 136 RTN
 
@@ -285,7 +285,7 @@
 193 R↓
 // restore last X
 194 RCL "L"
-195 STO IND ST L
+195 STO ST L
 196 R↓
 197 RTN
 
