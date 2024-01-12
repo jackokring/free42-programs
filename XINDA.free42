@@ -398,3 +398,16 @@
 278 FS? 64
 279 RTNYES
 280 RTNNO
+
+// ========= programatic integration template ==========
+// PGMINT ""
+// STO knowns
+// STO "LLIM"
+// STO "ULIM"
+//? STO "ACC"
+// INTEG ""
+
+// ========= programatic solve template ==========
+// PGMSLV ""
+// STO knowns
+// SOLVE ""
