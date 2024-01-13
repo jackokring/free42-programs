@@ -1,4 +1,4 @@
-00 { 884-Byte Prgm }
+00 { 891-Byte Prgm }
 // 4STK mode default, FUNC does not compile
 // LBL A-J/a-e are local lettered
 // Max label local 19
@@ -224,15 +224,16 @@
 // ========= INTS ==========
 // ========= GCD ==========
 154 LBL "GCD"
-155 ".GCD"
+// like hidden [FIND]?
+155 "[GCD]"
 // save a return
 156 GTO "XINDA"
-157 LBL ".GCD"
+157 LBL "[GCD]"
 158 MOD
 159 LASTX
 160 X<>Y
 161 X≠0?
-162 GTO ".GCD"
+162 GTO "[GCD]"
 163 +
 164 XEQ "DRPX"
 165 XEQ "DRPX"

@@ -21,4 +21,7 @@ Time Value Money with `B/E` boolean. Begin is zero. End is one.
 
 # Equations for Integrate
 Some of the following equations can or are used to provide `APP` functions.
+All equations are stored in the form `integrate(x)-y=0` so can be evaluated in
+the solver when not required to be integrated. This requires the addition of
+`y_const*(upper-lower)` after integration.
 
