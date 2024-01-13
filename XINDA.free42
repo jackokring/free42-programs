@@ -16,11 +16,14 @@
 // Z Z
 
 // ========= app menu ==========
+// divide by related sections
 01 LBL "APP"
 // MENU keys GTO for menu change, XEQ for operation
 02 "FRAC"
+// fractions
 03 KEY 1 GTO "FRAC"
-04 ""
+04 "INTS"
+// integer operations
 05 KEY 2 XEQ "INTS"
 06 ""
 07 KEY 3 XEQ "name"
@@ -38,10 +41,11 @@
 16 KEY 9 GTO "XITEND"
 17 GTO "NTRMENU"
 
-// ========= frac menu ==========
+// ========= fraction menu ==========
 18 LBL "FRAC"
 // MENU keys GTO for menu change, XEQ for operation
 19 "÷+→"
+// store initial fraction as N/D for 4 operation postfix
 20 KEY 1 XEQ 09
 21 "÷++"
 22 KEY 2 XEQ 10
@@ -52,6 +56,7 @@
 27 "÷+÷"
 28 KEY 5 XEQ 13
 29 "→÷+"
+// print fraction from N/D
 30 KEY 6 XEQ 14
 // UP
 31 KEY 7 GTO "FRAC"
@@ -65,6 +70,7 @@
 35 LBL "INTS"
 // MENU keys GTO for menu change, XEQ for operation
 36 "GCD"
+// greatest common divisor
 37 KEY 1 XEQ "GCD"
 38 ""
 39 KEY 2 XEQ "name"
@@ -84,6 +90,7 @@
 50 KEY 9 GTO "APP"
 51 GTO "NTRMENU"
 
+// ========= menu utilities ==========
 // ========= show menus and wait ==========
 52 LBL "NTRMENU"
 53 MENU
@@ -97,8 +104,11 @@
 59 EXITALL
 60 RTN
 
+// ========= FRAC ==========
 // ========= frac local processsing ==========
-// ignore resetting REGS back on exit, and fix last X
+// don't use temporay REGS as persists
+// display post operation uses all 4 levels
+// L register is decimal representation
 61 LBL 09
 // store denominator
 62 STO 00
@@ -211,7 +221,7 @@
 152 STO× 00
 153 RTN
 
-// ========= number theory ==========
+// ========= INTS ==========
 // ========= GCD ==========
 154 LBL "GCD"
 155 ".GCD"
@@ -228,9 +238,10 @@
 165 XEQ "DRPX"
 166 GTO "XIT1"
 
-// ========= execute indirect alpha ==========
+// ========= execute indirect alpha (entry point) ==========
 // Use RCLT if you need the global T restored
-// otherwise it's gone.
+// otherwise it's gone for evaluation
+// easiest way of getting a "free" working register
 167 LBL "XINDA"
 // save stack
 168 LSTO "X"
@@ -260,10 +271,10 @@
 
 // ========= exit points ==========
 // return a number of items
+// tail call GTO
 // perform all the clean up FUNC style
-// use DRPX to consume input
+// use DRPX to consume input stack datum
 // so FUNC 11 is a DRPX XIT1 kinda XEQ
-// of a XINDA
 // ========= zero return datums ==========
 186 LBL "XIT0"
 187 XEQ 00
@@ -322,6 +333,8 @@
 225 RTN
 
 // ========= store local T (U) ==========
+// needs a LSTO "U" in the outer context
+// so that "U" remains local
 226 LBL "STOT"
 227 R↑
 228 STO "U"

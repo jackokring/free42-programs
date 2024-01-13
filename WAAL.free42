@@ -1,0 +1,27 @@
+00 { 71-Byte Prgm }
+01 LBL "WAALS"
+02 MVAR "P"
+03 MVAR "V"
+04 MVAR "n"
+05 MVAR "T"
+06 MVAR "a"
+07 MVAR "b"
+08 RCL "P"
+09 RCL "n"
+10 X↑2
+11 RCL× "a"
+12 RCL "V"
+13 X↑2
+14 ÷
+15 +
+16 RCL "V"
+17 RCL "n"
+18 RCL× "b"
+19 -
+20 ×
+21 0.082057
+22 RCL× "n"
+23 RCL× "T"
+24 -
+25 RTN
+26 END
