@@ -7,8 +7,10 @@ A system which compiles and does something like `FUNC` and also a menuing app is
 to return datums (tail call optimization encouraged), and `DRPX` to "consume" input datums.
 The menus are as follows
  * `FRAC` fractions, units `ENTER`, numerator `ENTER`, denominator then 1 of 4 functions. The first and last
- functions are store as and recall/display from respectively.
- * `INTS` integer functions `GCD`.
+ functions are store as and recall/display from respectively. The divide plus notation reminds the RPN decimal.
+   * `÷+→`, `÷++`, `÷+-`, `÷+×`, `÷+÷`, `→÷+`.
+ * `INTS` integer functions.
+   * `GCD`.
 
 # Equations for Solver
 Some of the following equations can or are used to provide `APP` functions.
@@ -17,11 +19,14 @@ Some of the following equations can or are used to provide `APP` functions.
 Universal gas law solver with constants `a` and `b` for better solutions.
 
 ## TVM
-Time Value Money with `B/E` boolean. Begin is zero. End is one. 
+Time Value Money with `B/E` boolean. Beginning payments is zero. Ending payments is one. 
 
 # Equations for Integrate
 Some of the following equations can or are used to provide `APP` functions.
-All equations are stored in the form `integrate(x)-y=0` so can be evaluated in
+All equations are stored in the form `differential - ∫ = 0` so can be evaluated in
 the solver when not required to be integrated. This requires the addition of
-`y_const*(upper-lower)` after integration.
+`∫ * (ULIM - LLIM)` after integration, or setting `∫` to zero.
+
+The `∫` variable is named as the integral symbol by `MVAR "∫"`, even though it's the
+differential of the integral when used as a variable for the solver.
 

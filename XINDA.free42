@@ -414,6 +414,10 @@
 280 RTNNO
 
 // ========= programatic integration template ==========
+// subtract the integral MVAR in integrals
+// this makes setting it to zero integrate
+// and using a program in solve then also works
+// MVAR "∫"
 // PGMINT ""
 // STO knowns
 // STO "LLIM"
