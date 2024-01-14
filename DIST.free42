@@ -1,0 +1,219 @@
+00 { 514-Byte Prgm }
+// Euler Integral
+01 LBL "EULI"
+02 MVAR "∫"
+03 MVAR "T"
+04 MVAR "Y"
+05 MVAR "X"
+06 RCL "T"
+07 RCL "X"
+08 1
+09 -
+10 Y↑X
+11 1
+12 RCL- "T"
+13 RCL "Y"
+14 1
+15 -
+16 Y↑X
+17 ×
+18 RCL- "∫"
+19 RTN
+
+// Normal Integral
+20 LBL "NORMI"
+21 MVAR "∫"
+22 MVAR "S"
+23 MVAR "M"
+24 MVAR "X"
+25 RCL "X"
+26 RCL- "M"
+27 RCL÷ "S"
+28 X↑2
+29 -2
+30 ÷
+31 E↑X
+32 RCL÷ "S"
+33 2
+34 PI
+35 ×
+36 SQRT
+37 ÷
+38 RCL- "∫"
+39 RTN
+
+// F Dist Integral
+40 LBL "FDISTI"
+41 MVAR "∫"
+42 MVAR "D1"
+43 MVAR "D2"
+44 MVAR "X"
+45 RCL "D1"
+46 2
+47 ÷
+48 RCL "D2"
+49 2
+50 ÷
+51 XEQ "BETA"
+52 RCL× "X"
+53 RCL "D1"
+54 RCL× "X"
+55 RCL "D1"
+56 Y↑X
+57 RCL "D2"
+58 RCL "D2"
+59 Y↑X
+60 ×
+61 RCL "D1"
+62 RCL× "X"
+63 RCL+ "D2"
+64 RCL "D1"
+65 RCL+ "D2"
+66 Y↑X
+67 ÷
+68 SQRT
+69 X<>Y
+70 ÷
+71 RCL- "∫"
+72 RTN
+
+// CHI Squared Integral
+73 LBL "CHI2I"
+74 MVAR "∫"
+75 MVAR "K"
+76 MVAR "X"
+77 RCL "K"
+78 2
+79 ÷
+80 ENTER
+81 ENTER
+82 1
+83 -
+84 RCL "X"
+85 X<>Y
+86 Y↑X
+87 RCL "X"
+88 -2
+89 ÷
+90 E↑X
+91 ×
+92 2
+93 RCL ST Z
+94 Y↑X
+95 ÷
+96 X<>Y
+97 GAMMA
+98 ÷
+99 RCL- "∫"
+100 RTN
+
+// Beta Distribution Integral
+101 LBL "BETAI"
+102 MVAR "∫"
+103 MVAR "A"
+104 MVAR "B"
+105 MVAR "X"
+106 RCL "A"
+107 RCL "B"
+108 XEQ "BETA"
+109 RCL "X"
+110 -1
+111 RCL+ "A"
+112 Y↑X
+113 X<>Y
+114 ÷
+115 1
+116 RCL "X"
+117 -
+118 RCL "B"
+119 1
+120 -
+121 Y↑X
+122 ×
+123 RCL- "∫"
+124 RTN
+
+// Logistic Integral
+125 LBL "LOGDI"
+126 MVAR "∫"
+127 MVAR "S"
+128 MVAR "M"
+129 MVAR "X"
+130 RCL "M"
+131 RCL- "X"
+132 RCL÷ "S"
+133 E↑X
+134 ENTER
+135 ENTER
+136 1
+137 +
+138 X↑2
+139 ÷
+140 RCL÷ "S"
+141 RCL- "∫"
+142 RTN
+
+// Student T Integral
+143 LBL "STUTI"
+144 MVAR "∫"
+145 MVAR "V"
+146 MVAR "X"
+147 0.5
+148 RCL "V"
+149 2
+150 ÷
+151 XEQ "BETA"
+152 RCL "V"
+153 SQRT
+154 ×
+155 1
+156 RCL "X"
+157 X↑2
+158 RCL÷ "V"
+159 +
+160 1
+161 RCL+ "V"
+162 -2
+163 ÷
+164 Y↑X
+165 X<>Y
+166 ÷
+167 RCL- "∫"
+168 RTN
+
+// Weibull Integral
+169 LBL "WEIBI"
+170 MVAR "∫"
+171 MVAR "K"
+172 MVAR "L"
+173 MVAR "X"
+174 RCL "K"
+175 RCL÷ "L"
+176 RCL "X"
+177 RCL÷ "L"
+178 -1
+179 RCL+ "K"
+180 Y↑X
+181 ×
+182 RCL "X"
+183 RCL÷ "L"
+184 RCL "K"
+185 Y↑X
+186 +/-
+187 E↑X
+188 ×
+189 RCL- "∫"
+190 RTN
+
+// Exponetial Distribution Integral
+191 LBL "EXPDI"
+192 MVAR "∫"
+193 MVAR "L"
+194 MVAR "X"
+195 RCL "L"
+196 RCL× "X"
+197 +/-
+198 E↑X
+199 RCL× "L"
+200 RCL- "∫"
+201 RTN

@@ -35,7 +35,9 @@ the solver when not required to be integrated. This requires the addition of
 The `∫` variable is named as the integral symbol by `MVAR "∫"`, even though it's the
 differential of the integral when used as a variable for the solver.
 
-
+## DIST
+Various things to integrate for statistics distributions.
+  * `EULI`, `NORMI`, `FDISTI`, `CHI2I`, `BETAI`, `LOGDI`, `STUTI`, `WEIBI`, `EXPDI`.
 
 # XTRAS
 Various extra bits found elsewhere.
