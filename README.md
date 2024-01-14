@@ -7,10 +7,11 @@ A system which compiles and does something like `FUNC` and also a menuing app is
 to return datums (tail call optimization encouraged), and `DRPX` to "consume" input datums.
 The menus are as follows
  * `FRAC` fractions, units `ENTER`, numerator `ENTER`, denominator then 1 of 4 functions. The first and last
- functions are store as and recall/display from respectively. The divide plus notation reminds the RPN decimal.
+ functions are store as and recall/display from respectively. The "divide plus" notation of the RPN decimal
+ of `Z + Y / X`.
    * `÷+→`, `÷++`, `÷+-`, `÷+×`, `÷+÷`, `→÷+`.
  * `INTS` integer functions.
-   * `GCD`.
+   * `GCD`, `LCM`.
  * `PDFS` beta and probability density functions.
    * `BETA` beta function.
 
@@ -21,7 +22,7 @@ Some of the following equations can or are used to provide `APP` functions.
 Universal gas law solver with constants `a` and `b` for better solutions.
 
 ## TVM
-Time Value Money with `B/E` boolean. Beginning payments is zero. Ending payments is one. 
+Time Value Money with `B/E` boolean. Beginning payments is one. Ending payments is zero. 
 
 ## CSRL
 The cosine rule. Set `A` to 90 degrees for Pythagoras.
