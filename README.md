@@ -11,6 +11,8 @@ The menus are as follows
    * `÷+→`, `÷++`, `÷+-`, `÷+×`, `÷+÷`, `→÷+`.
  * `INTS` integer functions.
    * `GCD`.
+ * `PDFS` beta and probability density functions.
+   * `BETA` beta function.
 
 # Equations for Solver
 Some of the following equations can or are used to provide `APP` functions.
@@ -21,6 +23,9 @@ Universal gas law solver with constants `a` and `b` for better solutions.
 ## TVM
 Time Value Money with `B/E` boolean. Beginning payments is zero. Ending payments is one. 
 
+## CSRL
+The cosine rule. Set `A` to 90 degrees for Pythagoras.
+
 # Equations for Integrate
 Some of the following equations can or are used to provide `APP` functions.
 All equations are stored in the form `differential - ∫ = 0` so can be evaluated in
@@ -29,4 +34,9 @@ the solver when not required to be integrated. This requires the addition of
 
 The `∫` variable is named as the integral symbol by `MVAR "∫"`, even though it's the
 differential of the integral when used as a variable for the solver.
+
+
+
+# XTRAS
+Various extra bits found elsewhere.
 

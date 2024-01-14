@@ -1,0 +1,16 @@
+// spherical coordinates
+00 { 30-Byte Prgm }
+01 LBL "->RTP"
+02 →POL //(x,y,z,t) -> (r_xy, phi, z, t)
+03 R↑ //(t, r_xy, phi, z)
+04 X<> ST T // (z, r_xy, phi, t); Key in X<>, .(period), ST T
+05 →POL
+06 RTN
+
+07 LBL "->XYZ"
+08 →REC // (r, theta, phi, t) -> (z, r_xy, phi, t)
+09 X<> ST T // (t, r_xy, phi, z); Key in X<>, .(period), ST T
+10 R↓ // (r_xy, phi, z, t)
+11 →POL
+12 RTN
+

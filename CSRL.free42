@@ -1,0 +1,20 @@
+00 { 47-Byte Prgm }
+01 LBL "CSRL"
+02 MVAR "a"
+03 MVAR "b"
+04 MVAR "c"
+05 MVAR "A"
+06 RCL "b"
+07 X↑2
+08 RCL "c"
+09 X↑2
+10 +
+11 2
+12 RCL× "b"
+13 RCL× "c"
+14 RCL "A"
+15 COS
+16 ×
+17 -
+18 RCL- "a"
+19 RTN

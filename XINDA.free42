@@ -25,8 +25,9 @@
 04 "INTS"
 // integer operations
 05 KEY 2 XEQ "INTS"
-06 ""
-07 KEY 3 XEQ "name"
+06 "PDFS"
+// beta and probability density functions (integration)
+07 KEY 3 XEQ "PDFS"
 08 ""
 09 KEY 4 XEQ "name"
 10 ""
@@ -86,6 +87,29 @@
 48 KEY 7 GTO "INTS"
 // DOWN
 49 KEY 8 GTO "INTS"
+// EXIT
+50 KEY 9 GTO "APP"
+51 GTO "NTRMENU"
+
+// ========= PDFs menu ==========
+35 LBL "PDFS"
+// MENU keys GTO for menu change, XEQ for operation
+36 "BETA"
+37 KEY 1 XEQ "BETA"
+38 ""
+39 KEY 2 XEQ "name"
+40 ""
+41 KEY 3 XEQ "name"
+42 ""
+43 KEY 4 XEQ "name"
+44 ""
+45 KEY 5 XEQ "name"
+46 ""
+47 KEY 6 XEQ "name"
+// UP
+48 KEY 7 GTO "PDFS"
+// DOWN
+49 KEY 8 GTO "PDFS"
 // EXIT
 50 KEY 9 GTO "APP"
 51 GTO "NTRMENU"
@@ -237,6 +261,24 @@
 163 +
 164 XEQ "DRPXY"
 165 GTO "XIT1"
+
+// ========= PDFS and special functions ==========
+LBL "BETA"
+"[BETA]"
+GTO "XINDA"
+LBL "[BETA]"
+RCL ST Y
+GAMMA
+RCL ST Y
+GAMMA
+×
+RCL ST Z
+RCL ST Z
++
+GAMMA
+÷
+XEQ "DRPXY"
+GTO "XIT1"
 
 // ========= execute indirect alpha (entry point) ==========
 // Use RCLT if you need the global T restored
