@@ -38,7 +38,20 @@ differential of the integral when used as a variable for the solver.
 
 ## DIST
 Various things to integrate for statistics distributions.
-  * `EULI`, `NORMI`, `FDISTI`, `CHI2I`, `BETAI`, `LOGDI`, `STUTI`, `WEIBI`, `EXPDI`.
+  * `∫EUL`, `∫NORM`, `∫FDIST`, `∫CHI2`, `∫BETA`, `∫LOGD`, `∫STUT`, `∫WEIB`, `∫EXPD`.
+
+# Equations for Summate
+Some of the following equations can or are used to provide `APP` functions.
+All equations are stored in the form `term - Σ = 0` so can be evaluated in
+the solver when not required to be integrated. This requires the addition of
+`Σ * (ULIM - LLIM)` after summation, or setting `Σ` to zero.
+
+The `Σ` variable is named as the summation symbol by `MVAR "Σ"`, even though it's
+a series term when used as a variable for the solver.
+
+## DIST
+Various things to summate for statistics distributions.
+  * .
 
 # XTRAS
 Various extra bits found elsewhere.

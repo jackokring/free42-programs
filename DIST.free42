@@ -1,6 +1,7 @@
 00 { 514-Byte Prgm }
+// Continuous Distributions
 // Euler Integral
-01 LBL "EULI"
+01 LBL "∫EUL"
 02 MVAR "∫"
 03 MVAR "T"
 04 MVAR "Y"
@@ -21,7 +22,7 @@
 19 RTN
 
 // Normal Integral
-20 LBL "NORMI"
+20 LBL "∫NORM"
 21 MVAR "∫"
 22 MVAR "S"
 23 MVAR "M"
@@ -43,7 +44,7 @@
 39 RTN
 
 // F Dist Integral
-40 LBL "FDISTI"
+40 LBL "∫FDIST"
 41 MVAR "∫"
 42 MVAR "D1"
 43 MVAR "D2"
@@ -78,7 +79,7 @@
 72 RTN
 
 // CHI Squared Integral
-73 LBL "CHI2I"
+73 LBL "∫CHI2"
 74 MVAR "∫"
 75 MVAR "K"
 76 MVAR "X"
@@ -108,7 +109,7 @@
 100 RTN
 
 // Beta Distribution Integral
-101 LBL "BETAI"
+101 LBL "∫BETA"
 102 MVAR "∫"
 103 MVAR "A"
 104 MVAR "B"
@@ -134,7 +135,7 @@
 124 RTN
 
 // Logistic Integral
-125 LBL "LOGDI"
+125 LBL "∫LOGD"
 126 MVAR "∫"
 127 MVAR "S"
 128 MVAR "M"
@@ -154,7 +155,7 @@
 142 RTN
 
 // Student T Integral
-143 LBL "STUTI"
+143 LBL "∫STUT"
 144 MVAR "∫"
 145 MVAR "V"
 146 MVAR "X"
@@ -182,7 +183,7 @@
 168 RTN
 
 // Weibull Integral
-169 LBL "WEIBI"
+169 LBL "∫WEIB"
 170 MVAR "∫"
 171 MVAR "K"
 172 MVAR "L"
@@ -206,7 +207,7 @@
 190 RTN
 
 // Exponetial Distribution Integral
-191 LBL "EXPDI"
+191 LBL "∫EXPD"
 192 MVAR "∫"
 193 MVAR "L"
 194 MVAR "X"

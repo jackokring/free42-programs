@@ -278,6 +278,7 @@
 192 GTO "XIT1"
 
 // ========= PDFS and special functions ==========
+// ========= beta function ==========
 193 LBL "BETA"
 194 "[BETA]"
 195 GTO "XINDA"
@@ -474,22 +475,68 @@
 324 RTNYES
 325 RTNNO
 
+// ========= programatic summation template ==========
+// a function to provide integration like summation
+// as this is not built in but would be useful
+// use PGMMENU
+// MVAR "Σ"
+// ..
+// RCL- "Σ"
+// RTN
+// >>"Select Σf(x) Program"
+// ""
+// XEQ "PGMΣ"
+// STO knowns
+// STO "LLIM"
+// STO "ULIM"
+// >>"Set Vars; Select Σvar"
+// ""
+// XEQ "Σ"
+// >>"VIEW "Σ""
+
+// T: ??
+// Z: ??
+// Y: Last term evaluated
+// X: Sum
+
 // ========= programatic integration template ==========
 // subtract the integral MVAR in integrals
 // this makes setting it to zero integrates
 // and using a program in solve then also works
+// messages displayed as >> in integrate app
 // MVAR "∫"
 // ..
 // RCL- "∫"
 // RTN
+// >>"Select ∫f(x) Program"
 // PGMINT ""
 // STO knowns
 // STO "LLIM"
 // STO "ULIM"
 //? STO "ACC"
+// >>"Set Vars; Select ∫var"
 // INTEG ""
+// >>"VIEW "∫""
+
+// T: ??
+// Z: ??
+// Y: Uncertainty
+// X: Integral
+
 
 // ========= programatic solve template ==========
 // PGMSLV ""
 // STO knowns
 // SOLVE ""
+
+// T: Solve state (GTO IND ST T // plus offset?)
+// = 0: Solved
+// = 1: Sign reversal
+// = 2: Extremum
+// = 3: Bad guesses
+// = 4: Function constant
+// Z: f(X(t))
+// Y: X(t-1)
+// X: X(t)
+
+
