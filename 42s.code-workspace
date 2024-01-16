@@ -11,6 +11,7 @@
 			"DRPX",
 			"EULI",
 			"EXPDI",
+			"FDIS",
 			"FDIST",
 			"FDISTI",
 			"INTS",
@@ -28,7 +29,9 @@
 			"WEIB",
 			"WEIBI",
 			"XINDA",
-			"XTRAS"
+			"XTRAS",
+			"ΣPOI",
+			"ΣPOIS"
 		]
 	}
 }

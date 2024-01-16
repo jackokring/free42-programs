@@ -1,2 +1,20 @@
-00 { 1-Byte Prgm }
+00 { 38-Byte Prgm }
 // Descreet Distributions
+// Poisson Term
+01 LBL "ΣPOIS"
+02 MVAR "Σ"
+03 MVAR "L"
+04 MVAR "K"
+05 RCL "L"
+06 ENTER
+07 +/-
+08 E↑X
+09 X<>Y
+10 RCL "K"
+11 Y↑X
+12 ×
+13 RCL "K"
+14 N!
+15 ÷
+16 RCL- "Σ"
+17 RTN

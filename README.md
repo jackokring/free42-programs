@@ -38,7 +38,7 @@ differential of the integral when used as a variable for the solver.
 
 ## DIST
 Various things to integrate for statistics distributions.
-  * `∫EUL`, `∫NORM`, `∫FDIST`, `∫CHI2`, `∫BETA`, `∫LOGD`, `∫STUT`, `∫WEIB`, `∫EXPD`.
+  * `∫NORM`, `∫FDIS`, `∫CHI2`, `∫BETA`, `∫LOGD`, `∫STUT`, `∫WEIB`, `∫EXPD`.
 
 # Equations for Summate
 Some of the following equations can or are used to provide `APP` functions.
@@ -51,7 +51,7 @@ a series term when used as a variable for the solver.
 
 ## DIST
 Various things to summate for statistics distributions.
-  * .
+  * `ΣPOIS`.
 
 # XTRAS
 Various extra bits found elsewhere.

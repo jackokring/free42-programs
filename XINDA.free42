@@ -485,13 +485,13 @@
 // RTN
 // >>"Select Σf(x) Program"
 // ""
-// XEQ "PGMΣ"
+// XEQ "PGMSUM"
 // STO knowns
 // STO "LLIM"
 // STO "ULIM"
 // >>"Set Vars; Select Σvar"
 // ""
-// XEQ "Σ"
+// XEQ "SUMATE"
 // >>"VIEW "Σ""
 
 // T: ??
