@@ -1,4 +1,4 @@
-00 { 38-Byte Prgm }
+00 { 95-Byte Prgm }
 // Descreet Distributions
 // Poisson Term
 01 LBL "ΣPOIS"
@@ -18,3 +18,27 @@
 15 ÷
 16 RCL- "Σ"
 17 RTN
+
+// Binomial Term
+18 LBL "ΣBINO"
+19 MVAR "Σ"
+20 MVAR "N"
+21 MVAR "P"
+22 MVAR "K"
+23 RCL "N"
+24 RCL "K"
+25 COMB
+26 RCL "P"
+27 RCL "K"
+28 Y↑X
+29 ×
+30 1
+31 RCL "P"
+32 -
+33 RCL "N"
+34 RCL "K"
+35 -
+36 Y↑X
+37 ×
+38 RCL- "Σ"
+39 RTN

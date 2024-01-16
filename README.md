@@ -49,9 +49,9 @@ the solver when not required to be integrated. This requires the addition of
 The `Σ` variable is named as the summation symbol by `MVAR "Σ"`, even though it's
 a series term when used as a variable for the solver.
 
-## DIST
+## DIST2
 Various things to summate for statistics distributions.
-  * `ΣPOIS`.
+  * `ΣPOIS`, `ΣBINO`.
 
 # XTRAS
 Various extra bits found elsewhere.
