@@ -14,6 +14,8 @@ The menus are as follows
    * `GCD`, `LCM`.
  * `PDFS` beta and probability density functions.
    * `BETA` beta function.
+ * 
+ * `Σf(x)` summation application.
 
 # Equations for Solver
 Some of the following equations can or are used to provide `APP` functions.

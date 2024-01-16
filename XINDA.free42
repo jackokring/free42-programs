@@ -1,7 +1,7 @@
-00 { 1112-Byte Prgm }
+00 { 1294-Byte Prgm }
 // 4STK mode default, FUNC does not compile
 // LBL A-J/a-e are local lettered (for HP 41ᴇxecute 15 options)
-// Max label local 19
+// Max label local 23
 // Max register number so far 04 (fractions)
 // Stats reserve registers 11 to 23 (do not alter)
 // Temp working register 24 (if needed)
@@ -32,8 +32,9 @@
 09 KEY 4 XEQ "name"
 10 ""
 11 KEY 5 XEQ "name"
-12 ""
-13 KEY 6 XEQ "name"
+12 "Σf(x)"
+// summation application
+13 KEY 6 XEQ "Σf(x)"
 // UP
 14 KEY 7 GTO "APP"
 // DOWN
@@ -119,213 +120,212 @@
 // ========= show menus and wait ==========
 69 LBL "NTRMENU"
 70 MENU
-71 LBL 08
-72 STOP
-73 GTO 08
+71 STOP
+72 GTO "APP"
 
 // ========= clear menus and exit ==========
-74 LBL "XITEND"
-75 CLMENU
-76 EXITALL
-77 RTN
+73 LBL "XITEND"
+74 CLMENU
+75 EXITALL
+76 RTN
 
 // ========= FRAC ==========
 // ========= frac local processsing ==========
 // don't use temporay REGS as persists
 // display post operation uses all 4 levels
 // L register is decimal representation
-78 LBL 09
+77 LBL 09
 // store denominator
-79 STO 00
-80 R↓
-81 X<>Y
-82 ×
-83 +
+78 STO 00
+79 R↓
+80 X<>Y
+81 ×
+82 +
 // store numerator
-84 STO 01
-85 RCL÷ 00
+83 STO 01
+84 RCL÷ 00
 // makes decimal in X
-86 GTO 16
-87 LBL 10
-88 XEQ 15
+85 GTO 16
+86 LBL 10
+87 XEQ 15
 // add
 // sub short cut
-89 LBL 18
-90 XEQ 19
+88 LBL 18
+89 XEQ 19
 // numerator addition
-91 RCL 03
-92 STO+ 01
-93 R↓
-94 GTO 16
-95 LBL 11
-96 XEQ 15
+90 RCL 03
+91 STO+ 01
+92 R↓
+93 GTO 16
+94 LBL 11
+95 XEQ 15
 // sub
-97 RCL 01
+96 RCL 01
+97 STO- 01
 98 STO- 01
-99 STO- 01
-100 R↓
-101 GTO 18
-102 LBL 12
-103 XEQ 15
+99 R↓
+100 GTO 18
+101 LBL 12
+102 XEQ 15
 // mul
 // div short cut
-104 LBL 17
-105 RCL 02
-106 STO× 00
-107 R↓
-108 RCL 03
-109 STO× 01
-110 R↓
-111 GTO 16
-112 LBL 13
-113 XEQ 15
+103 LBL 17
+104 RCL 02
+105 STO× 00
+106 R↓
+107 RCL 03
+108 STO× 01
+109 R↓
+110 GTO 16
+111 LBL 13
+112 XEQ 15
 // div
-114 RCL 00
-115 STO 24
-116 R↓
-117 RCL 01
-118 STO 00
-119 R↓
-120 RCL 24
-121 STO 01
-122 R↓
-123 GTO 17
-124 LBL 14
+113 RCL 00
+114 STO 24
+115 R↓
+116 RCL 01
+117 STO 00
+118 R↓
+119 RCL 24
+120 STO 01
+121 R↓
+122 GTO 17
+123 LBL 14
 // to decimal in T, Z+Y/X
-125 RCL 01
-126 RCL÷ 00
-127 ENTER
-128 IP
-129 ENTER
-130 RCL× 00
-131 RCL- 01
-132 +/-
-133 RCL 00
-134 R↑
-135 STO ST L
-136 R↓
-137 RTN
+124 RCL 01
+125 RCL÷ 00
+126 ENTER
+127 IP
+128 ENTER
+129 RCL× 00
+130 RCL- 01
+131 +/-
+132 RCL 00
+133 R↑
+134 STO ST L
+135 R↓
+136 RTN
 // clone and read new
-138 LBL 15
-139 RCL 00
-140 STO 02
-141 R↓
-142 RCL 01
-143 STO 03
-144 R↓
-145 GTO 09
+137 LBL 15
+138 RCL 00
+139 STO 02
+140 R↓
+141 RCL 01
+142 STO 03
+143 R↓
+144 GTO 09
 // cancel GCD
-146 LBL 16
-147 RCL 01
+145 LBL 16
+146 RCL 01
 // zero numerator?
-148 X=0?
-149 RTN
-150 RCL 00
-151 XEQ "GCD"
-152 STO÷ 01
-153 STO÷ 00
+147 X=0?
+148 RTN
+149 RCL 00
+150 XEQ "GCD"
+151 STO÷ 01
+152 STO÷ 00
 // display
-154 XEQ 14
-155 RTN
+153 XEQ 14
+154 RTN
 // normalize pair
-156 LBL 19
-157 RCL 00
-158 ENTER
-159 RCL 02
-160 XEQ "LCM"
+155 LBL 19
+156 RCL 00
+157 ENTER
+158 RCL 02
+159 XEQ "LCM"
 // store LCM as have stacked in Y denominator
-161 STO 00
-162 X<>Y
-163 ÷
+160 STO 00
+161 X<>Y
+162 ÷
 // grow base fraction numerator
-164 STO× 01
-165 RCL 00
-166 RCL 02
-167 ÷
+163 STO× 01
+164 RCL 00
+165 RCL 02
+166 ÷
 // grow second fraction numerator
-168 STO× 03
-169 RTN
+167 STO× 03
+168 RTN
 
 // ========= INTS ==========
 // ========= GCD ==========
-170 LBL "GCD"
+169 LBL "GCD"
 // like hidden [FIND]?
-171 "[GCD]"
+170 "[GCD]"
 // save a return
-172 GTO "XINDA"
-173 LBL "[GCD]"
-174 MOD
-175 LASTX
-176 X<>Y
-177 X≠0?
-178 GTO "[GCD]"
-179 +
-180 XEQ "DRPXY"
-181 GTO "XIT1"
+171 GTO "XINDA"
+172 LBL "[GCD]"
+173 MOD
+174 LASTX
+175 X<>Y
+176 X≠0?
+177 GTO "[GCD]"
+178 +
+179 XEQ "DRPXY"
+180 GTO "XIT1"
 
 // ========= LCM ==========
-182 LBL "LCM"
+181 LBL "LCM"
 // like hidden [FIND]?
-183 "[LCM]"
-184 GTO "XINDA"
-185 LBL "[LCM]"
-186 XEQ "GCD"
-187 RCL "X"
-188 X<>Y
-189 ÷
-190 RCL× "Y"
-191 XEQ "DRPXY"
-192 GTO "XIT1"
+182 "[LCM]"
+183 GTO "XINDA"
+184 LBL "[LCM]"
+185 XEQ "GCD"
+186 RCL "X"
+187 X<>Y
+188 ÷
+189 RCL× "Y"
+190 XEQ "DRPXY"
+191 GTO "XIT1"
 
 // ========= PDFS and special functions ==========
 // ========= beta function ==========
-193 LBL "BETA"
-194 "[BETA]"
-195 GTO "XINDA"
-196 LBL "[BETA]"
-197 RCL ST Y
-198 GAMMA
-199 RCL ST Y
-200 GAMMA
-201 ×
+192 LBL "BETA"
+193 "[BETA]"
+194 GTO "XINDA"
+195 LBL "[BETA]"
+196 RCL ST Y
+197 GAMMA
+198 RCL ST Y
+199 GAMMA
+200 ×
+201 RCL ST Z
 202 RCL ST Z
-203 RCL ST Z
-204 +
-205 GAMMA
-206 ÷
-207 XEQ "DRPXY"
-208 GTO "XIT1"
+203 +
+204 GAMMA
+205 ÷
+206 XEQ "DRPXY"
+207 GTO "XIT1"
 
 // ========= execute indirect alpha (entry point) ==========
 // Use RCLT if you need the global T restored
 // otherwise it's gone for evaluation
 // easiest way of getting a "free" working register
-209 LBL "XINDA"
+208 LBL "XINDA"
 // save stack
-210 LSTO "X"
-211 R↓
-212 LSTO "Y"
-213 R↓
-214 LSTO "Z"
-215 R↓
-216 LSTO "T"
+209 LSTO "X"
+210 R↓
+211 LSTO "Y"
+212 R↓
+213 LSTO "Z"
+214 R↓
+215 LSTO "T"
 // make local temp context for local T
-217 LSTO "U"
-218 R↓
+216 LSTO "U"
+217 R↓
 // save last X
-219 LASTX
-220 LSTO "L"
-221 R↓
+218 LASTX
+219 LSTO "L"
+220 R↓
 // save registers
-222 RCL "REGS"
-223 LSTO "R"
+221 RCL "REGS"
+222 LSTO "R"
 // local temp context for registers
-224 LSTO "S"
-225 R↓
+223 LSTO "S"
+224 R↓
 // do indirect
-226 ASTO ST T
+225 ASTO ST T
 // no need for XEQ
-227 GTO IND ST T
+226 GTO IND ST T
 
 // ========= exit points ==========
 // return a number of items
@@ -334,146 +334,167 @@
 // use DRPX to consume input stack datum
 // so FUNC 11 is a DRPX XIT1 kinda XEQ
 // ========= zero return datums ==========
-228 LBL "XIT0"
-229 XEQ 00
-230 XEQ 04
-231 RTN
+227 LBL "XIT0"
+228 XEQ 00
+229 XEQ 04
+230 RTN
 
 // ========= one return datum ==========
-232 LBL "XIT1"
-233 XEQ 00
-234 XEQ 03
-235 GTO 05
+231 LBL "XIT1"
+232 XEQ 00
+233 XEQ 03
+234 GTO 05
 
 // ========= two return datums ==========
-236 LBL "XIT2"
-237 XEQ 00
-238 XEQ 02
-239 GTO 06
+235 LBL "XIT2"
+236 XEQ 00
+237 XEQ 02
+238 GTO 06
 
 // ========= three return datums ==========
-240 LBL "XIT3"
-241 XEQ 00
-242 XEQ 01
-243 GTO 07
+239 LBL "XIT3"
+240 XEQ 00
+241 XEQ 01
+242 GTO 07
 
 // ========= four return datums ==========
-244 LBL "XIT4"
-245 XEQ "STOT"
-246 XEQ 00
-247 GTO "LRCLT"
+243 LBL "XIT4"
+244 XEQ "STOT"
+245 XEQ 00
+246 GTO "LRCLT"
 
 // ========= exit stack repair ==========
-248 LBL 04
-249 RCL "T"
-250 LBL 03
-251 RCL "Z"
-252 LBL 02
-253 RCL "Y"
-254 LBL 01
-255 RCL "X"
-256 RTN
+247 LBL 04
+248 RCL "T"
+249 LBL 03
+250 RCL "Z"
+251 LBL 02
+252 RCL "Y"
+253 LBL 01
+254 RCL "X"
+255 RTN
 
 // ========= rotary fixing ==========
-257 LBL 05
-258 R↓
-259 LBL 06
-260 R↓
-261 LBL 07
-262 R↓
-263 RTN
+256 LBL 05
+257 R↓
+258 LBL 06
+259 R↓
+260 LBL 07
+261 R↓
+262 RTN
 
 // ========= T management ==========
 // ========= repair global T ==========
-264 LBL "RCLT"
-265 RCL "T"
-266 R↓
-267 RTN
+263 LBL "RCLT"
+264 RCL "T"
+265 R↓
+266 RTN
 
 // ========= store local T (U) ==========
 // needs a LSTO "U" in the outer context
 // so that "U" remains local
-268 LBL "STOT"
-269 R↑
-270 STO "U"
-271 R↓
-272 RTN
+267 LBL "STOT"
+268 R↑
+269 STO "U"
+270 R↓
+271 RTN
 
 // ========= repair local T (U) ==========
-273 LBL "LRCLT"
-274 RCL "U"
-275 R↓
-276 RTN
+272 LBL "LRCLT"
+273 RCL "U"
+274 R↓
+275 RTN
 
 // ========= restore registers and last X ==========
 // restore registers called by XIT0-XIT4.
-277 LBL 00
-278 RCL "R"
-279 STO "REGS"
-280 R↓
+276 LBL 00
+277 RCL "R"
+278 STO "REGS"
+279 R↓
 // restore last X
-281 RCL "L"
-282 STO ST L
-283 R↓
-284 RTN
+280 RCL "L"
+281 STO ST L
+282 R↓
+283 RTN
 
 // ========= drop one return value ==========
 // T->Z->Y->X->L
 // local context
-285 LBL "DRPX"
-286 LSTO "U"
-287 XEQ "STOT"
-288 RCL "X"
-289 STO "L"
-290 R↓
-291 RCL "Y"
-292 STO "X"
-293 R↓
-294 RCL "Z"
-295 STO "Y"
-296 R↓
-297 RCL "T"
-298 STO "Z"
-299 R↓
-300 GTO "LRCLT"
+284 LBL "DRPX"
+285 LSTO "U"
+286 XEQ "STOT"
+287 RCL "X"
+288 STO "L"
+289 R↓
+290 RCL "Y"
+291 STO "X"
+292 R↓
+293 RCL "Z"
+294 STO "Y"
+295 R↓
+296 RCL "T"
+297 STO "Z"
+298 R↓
+299 GTO "LRCLT"
 
 // ========= drop two return values ==========
-301 LBL "DRPXY"
-302 XEQ "DRPX"
-303 GTO "DRPX"
+300 LBL "DRPXY"
+301 XEQ "DRPX"
+302 GTO "DRPX"
 
 // ========= temporary register switching ==========
 // imoprt local copy of registers to S
-304 LBL "IMPRG"
-305 XEQ "EXREG"
-306 GTO "EXREG"
+303 LBL "IMPRG"
+304 XEQ "EXREG"
+305 GTO "EXREG"
 
 // this is it's own inverse, if used twice by the above S
 // is initialized with a local copy of REGS
 // use this to export registers from function
-307 LBL "EXREG"
-308 XEQ "STOT"
-309 RCL "R"
-310 STO "S"
-311 R↓
-312 RCL "REGS"
-313 STO "R"
-314 R↓
-315 XEQ "LRCLT"
+306 LBL "EXREG"
+307 XEQ "STOT"
+308 RCL "R"
+309 STO "S"
+310 R↓
+311 RCL "REGS"
+312 STO "R"
+313 R↓
+314 XEQ "LRCLT"
 // ========= export registers from S ==========
-316 LBL "EXPRG"
-317 XEQ "STOT"
-318 RCL "S"
-319 STO "REGS"
-320 R↓
-321 GTO "LRCLT"
+315 LBL "EXPRG"
+316 XEQ "STOT"
+317 RCL "S"
+318 STO "REGS"
+319 R↓
+320 GTO "LRCLT"
 
 // ========= utility functions ==========
 // ========= test shift was last key ==========
-322 LBL "SFT?"
-323 FS? 64
-324 RTNYES
-325 RTNNO
+321 LBL "SFT?"
+322 FS? 64
+323 RTNYES
+324 RTNNO
+
+// ========= return errors ==========
+// 0: None
+// 1: Alpha Invalid
+// 2: Out of Range
+// 3: Divide 0
+// 4: Invalid Type
+// 5: Invalid Data
+// 6: Nonexistant
+// 7: Dimension Error
+// 8: Too Few Args
+
+// >> RTNERR IND ST T can be alpha chars
+// ========= nested summation ==========
+325 LBL "Σ(Σ)"
+// "Σ(Σ)"
+// ASTO 24
+// RTNERR IND 24
+// doesn't compile so nest implies exceeding
+// dimension?
+326 RTNERR 7
 
 // ========= programatic summation template ==========
 // a function to provide integration like summation
@@ -498,6 +519,60 @@
 // Z: ??
 // Y: Last term evaluated
 // X: Sum
+327 LBL "Σf(x)"
+328 PGMMENU
+329 "Select Σf(x) Program"
+330 PROMPT
+331 STOP
+// have alpha of program to execute
+332 XEQ "PGMSUM"
+333 VARMENU IND 24
+334 "Set Vars; Select Σvar"
+335 PROMPT
+336 STOP
+337 "LLIM"
+338 KEY 1 XEQ 22
+339 "ULIM"
+340 KEY 2 XEQ 23
+341 ""
+342 KEY 3 GTO 20
+343 ""
+344 KEY 4 GTO 20
+345 ""
+346 KEY 5 GTO 20
+347 "Σ"
+// call SUMATE indirectly and VIEW "Σ"
+348 KEY 6 XEQ 21
+// UP
+349 KEY 7 GTO 20
+// DOWN
+350 KEY 8 GTO 20
+// EXIT
+// needs R/S to redisplay APP menu
+351 KEY 9 GTO "XITEND"
+// local to store sum in
+352 LSTO "Σ"
+353 GTO "NTRMENU"
+// call SUMATE and and VIEW
+354 LBL 21
+
+355 VIEW "Σ"
+356 RTN
+// LLIM
+357 LBL 22
+
+358 RTN
+// ULIM
+359 LBL 23
+
+360 RTN
+// save temp alpha prog
+361 LBL "PGMSUM"
+362 ASTO 24
+363 RTN
+// ??
+364 LBL 08
+
 
 // ========= programatic integration template ==========
 // subtract the integral MVAR in integrals
